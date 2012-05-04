@@ -4,10 +4,12 @@ jQuery Splitter is plugin that split your content with movable splitter between 
 
 # Example
 
+```javascript
 $('#foo').split({
     orientation: 'horizontal',
     limit:10
 });
+```
 
 # Demo
 
@@ -15,5 +17,6 @@ $('#foo').split({
 
 # Lincense
 
-Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl> 
+Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl>
+
 Released under the terms of the GNU Lesser General Public License
