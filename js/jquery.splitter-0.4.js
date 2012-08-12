@@ -25,6 +25,8 @@
         var panel_2;
         var settings = {
             limit: 100,
+            orientation: 'horizontal',
+            position: '50%'
         };
         options && $.extend(settings, options);
         var cls;
@@ -120,14 +122,32 @@
             self.position(pos);
         });
         //inital position of spliter
-        
+        var m = settings.position.match(/^([0-9]+)(%)?$/);
+        var pos;
         if (settings.orientation == 'vertical') {
-            position = width/2;
+            if (!m[2]) {
+                pos = settings.position;
+            } else {
+                pos = (width * +m[1]) / 100;
+            }
+            if (pos > width-settings.limit) {
+                pos = width-settings.limit;
+            }
         } else if (settings.orientation == 'horizontal') {
-            position = height/2;
+            //position = height/2;
+            if (!m[2]) {
+                pos = settings.position;
+            } else {
+                pos = (height * +m[1]) / 100;
+            }
+            if (pos > height-settings.limit) {
+                pos = height-settings.limit;
+            }
         }
-        self.position(position);
-        
+        if (pos < settings.limit) {
+            pos = settings.limit;
+        }
+        self.position(pos);
         if (spliters.length == 0) { // first time bind events to document
             $(document.documentElement).bind('mousedown.spliter', function() {
                 if (spliter_id !== null) {
