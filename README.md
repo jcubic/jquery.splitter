@@ -7,7 +7,8 @@ jQuery Splitter is plugin that split your content with movable splitter between 
 ```javascript
 $('#foo').split({
     orientation: 'horizontal',
-    limit:10
+    limit: 10,
+    position: '50%' // if there is no percentage it interpret it as pixels
 });
 ```
 
