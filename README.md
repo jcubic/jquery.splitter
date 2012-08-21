@@ -16,6 +16,11 @@ $('#foo').split({
 
 <http://jquery.jcubic.pl/splitter.php>
 
+# Patch Contributors
+
+* Robert Tupelo-Schneck
+* esteewhy
+
 # Lincense
 
 Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl>
