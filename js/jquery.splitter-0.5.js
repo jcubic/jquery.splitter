@@ -114,11 +114,12 @@
             var pos = self.position();
             if (self.orientation == 'vertical' && 
                 pos > self.width()) {
-                pos -= self.limit-1;
+                pos = self.width() - self.limit-1;
             } else if (self.orientation == 'horizontal' && 
                        pos > self.height()) {
-                pos -= self.limit-1;
+                pos = self.height() - self.limit-1;
             }
+            if(pos < self.limit) pos = self.limit + 1;
             self.position(pos);
         });
         //inital position of spliter
@@ -169,6 +170,12 @@
                     var offset = current_spliter.offset();
                     if (current_spliter.orientation == 'vertical') {
                         var x = e.pageX - offset.left;
+                        if(x <= current_spliter.limit) {
+                            x = current_spliter.limit + 1;
+                        }
+                        else if (x >= current_spliter.width() - limit) {
+                            x = current_spliter.width() - limit - 1;
+                        }
                         if (x > current_spliter.limit &&
                             x < current_spliter.width()-limit) {
                             current_spliter.position(x);
@@ -177,10 +184,16 @@
                         }
                     } else if (current_spliter.orientation == 'horizontal') {
                         var y = e.pageY-offset.top;
+                        if(y <= current_spliter.limit) {
+                            y = current_spliter.limit + 1;
+                        }
+                        else if (y >= current_spliter.height() - limit) {
+                            y = current_spliter.height() - limit - 1;
+                        }
                         if (y > current_spliter.limit &&
                             y < current_spliter.height()-limit) {
                             current_spliter.position(y);
-                            current_spliter.find('.spliter_panel').trigger('spliter.resize');
+                            current_spliter.trigger('spliter.resize');
                             return false;
                         }
                     }
