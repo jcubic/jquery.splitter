@@ -82,7 +82,7 @@
             })(),
             orientation: settings.orientation,
             limit: settings.limit,
-			isActive: function() { return spliter_id === id; },
+            isActive: function() { return spliter_id === id; },
             destroy: function() {
                 spliter.unbind('mouseenter');
                 spliter.unbind('mouseleave');
