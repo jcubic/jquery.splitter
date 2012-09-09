@@ -23,12 +23,14 @@
     $.fn.split = function(options) {
         var panel_1;
         var panel_2;
-        var settings = {
+        var settings = $.extend({
             limit: 100,
             orientation: 'horizontal',
-            position: '50%'
-        };
-        options && $.extend(settings, options);
+            position: '50%',
+            onDragStart: $.noop,
+            onDragEnd: $.noop,
+            onDrag: $.noop
+        }, options || {});
         var cls;
         var children = this.children();
         if (settings.orientation == 'vertical') {
@@ -82,7 +84,9 @@
             })(),
             orientation: settings.orientation,
             limit: settings.limit,
-            isActive: function() { return spliter_id === id; },
+            isActive: function() {
+                return spliter_id === id;
+            },
             destroy: function() {
                 spliter.unbind('mouseenter');
                 spliter.unbind('mouseleave');
@@ -127,20 +131,20 @@
         var m = settings.position.match(/^([0-9]+)(%)?$/);
         var pos;
         if (settings.orientation == 'vertical') {
-            if (!m[2]) {
-                pos = settings.position;
-            } else {
+            if (m[2]) {
                 pos = (width * +m[1]) / 100;
+            } else {
+                pos = settings.position;
             }
             if (pos > width-settings.limit) {
                 pos = width-settings.limit;
             }
         } else if (settings.orientation == 'horizontal') {
             //position = height/2;
-            if (!m[2]) {
-                pos = settings.position;
-            } else {
+            if (m[2]) {
                 pos = (height * +m[1]) / 100;
+            } else {
+                pos = settings.position;
             }
             if (pos > height-settings.limit) {
                 pos = height-settings.limit;
@@ -151,7 +155,7 @@
         }
         self.position(pos);
         if (spliters.length == 0) { // first time bind events to document
-            $(document.documentElement).bind('mousedown.spliter', function() {
+            $(document.documentElement).bind('mousedown.spliter', function(e) {
                 if (spliter_id !== null) {
                     current_spliter = spliters[spliter_id];
                     $('<div class="splitterMask"></div>').insertAfter(current_spliter);
@@ -160,11 +164,14 @@
                     } else if (current_spliter.orientation == 'vertical') {
                         $('body').css('cursor', 'col-resize');
                     }
+                    settings.onDragStart(e);
                     return false;
                 }
             }).bind('mouseup.spliter', function() {
-                current_spliter = null;$('div.splitterMask').remove();
+                current_spliter = null;
+                $('div.splitterMask').remove();
                 $('body').css('cursor', 'auto');
+                settings.onDragEnd(e);
             }).bind('mousemove.spliter', function(e) {
                 if (current_spliter !== null) {
                     var limit = current_spliter.limit;
@@ -198,6 +205,7 @@
                             return false;
                         }
                     }
+                    settings.onDrag(e);
                 }
             });
         }
