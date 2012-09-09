@@ -109,7 +109,7 @@
                 }
                 //remove document events when no spliters
                 if (!not_null) {
-                    $(document.documentElement).bind('.spliter');
+                    $(document.documentElement).unbind('.spliter');
                     spliters = [];
                 }
             }
