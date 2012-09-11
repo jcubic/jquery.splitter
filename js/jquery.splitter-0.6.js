@@ -167,7 +167,7 @@
                     settings.onDragStart(e);
                     return false;
                 }
-            }).bind('mouseup.spliter', function() {
+            }).bind('mouseup.spliter', function(e) {
                 current_spliter = null;
                 $('div.splitterMask').remove();
                 $('body').css('cursor', 'auto');
