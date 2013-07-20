@@ -19,10 +19,10 @@ $('#foo').split({
 # Patch Contributors
 
 * Robert Tupelo-Schneck
-* esteewhy
+* Taras Strypko
 
 # Lincense
 
-Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl>
+Copyright (C) 2010 Jakub Jankiewicz &lt;<http://jcubic.pl>&gt;
 
-Released under the terms of the GNU Lesser General Public License
+Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
