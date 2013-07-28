@@ -14,7 +14,8 @@ $('#foo').split({
 
 # Demo
 
-<http://jquery.jcubic.pl/splitter.php>
+* NEW using gh-pages (change it to yours): http://www.vorburger.ch/jquery.splitter/demo-latestJQuery.html
+* OLD: <http://jquery.jcubic.pl/splitter.php>
 
 # Patch Contributors
 
