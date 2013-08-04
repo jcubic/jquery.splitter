@@ -1,45 +1,45 @@
 /*!
- * StyleSheet for JQuery Spliter Plugin
+ * StyleSheet for JQuery splitter Plugin
  * Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl>
  *
  * Same license as plugin
  */
-.spliter_panel {
+.splitter_panel {
   position: relative;
 }
-.spliter_panel .vspliter {
+.splitter_panel .vsplitter {
     background-color: grey;
     cursor: col-resize;
     z-index:900;
     width: 4px;
 }
 
-.spliter_panel .hspliter {
+.splitter_panel .hsplitter {
     background-color: #5F5F5F;
     cursor: row-resize;
     z-index: 800;
     height: 4px;
 }
-.spliter_panel .vspliter, .spliter_panel .left_panel, .spliter_panel .right_panel,
-.spliter_panel .hspliter, .spliter_panel .top_panel, .spliter_panel .bottom_panel {
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel,
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
     position: absolute;
     overflow: auto;
 }
-.spliter_panel .vspliter, .spliter_panel .left_panel, .spliter_panel .right_panel {
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel {
   height: 100%;
 }
-.spliter_panel .hspliter, .spliter_panel .top_panel, .spliter_panel .bottom_panel {
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
   width: 100%;
 }
-.spliter_panel .top_panel, .spliter_panel .left_panel, .spliter_panel .vspliter {
+.splitter_panel .top_panel, .splitter_panel .left_panel, .splitter_panel .vsplitter {
    top: 0;
 }
-.spliter_panel .top_panel, .spliter_panel .bottom_panel, .spliter_panel .left_panel, .spliter_panel .hspliter {
+.splitter_panel .top_panel, .splitter_panel .bottom_panel, .splitter_panel .left_panel, .splitter_panel .hsplitter {
    left: 0;
 }
-.spliter_panel .bottom_panel {
+.splitter_panel .bottom_panel {
    bottom: 0;
 }
-.spliter_panel .right_panel {
+.splitter_panel .right_panel {
    right: 0;
 }
