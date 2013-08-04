@@ -81,6 +81,10 @@
         }
 
         var self = $.extend(this, {
+            refresh: function() {
+                width = this.width();
+                height = this.height();
+            },
             position: (function() {
                 if (settings.orientation == 'vertical') {
                     return function(n, silent) {
@@ -124,6 +128,7 @@
                 return splitter_id === id;
             },
             destroy: function() {
+                self.removeClass('splitter_panel');
                 splitter.unbind('mouseenter');
                 splitter.unbind('mouseleave');
                 if (settings.orientation == 'vertical') {
@@ -134,6 +139,7 @@
                     panel_2.removeClass('bottom_panel');
                 }
                 self.unbind('splitter.resize');
+                self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
                 splitter.remove();
                 var not_null = false;
@@ -146,6 +152,7 @@
                 //remove document events when no splitters
                 if (!not_null) {
                     $(document.documentElement).unbind('.splitter');
+                    $(window).unbind('resize.splitter');
                     splitters = [];
                 }
             }
@@ -185,6 +192,11 @@
         }
         self.position(pos, true);
         if (splitters.length == 0) { // first time bind events to document
+            $(window).bind('resize.splitter', function() {
+                $.each(splitters, function(i, splitter) {
+                    splitter.refresh();
+                });
+            });
             $(document.documentElement).bind('mousedown.splitter', function(e) {
                 if (splitter_id !== null) {
                     current_splitter = splitters[splitter_id];
@@ -198,9 +210,7 @@
                     return false;
                 }
             }).bind('mouseup.splitter', function(e) {
-                if (current_splitter !== null) {
-                    current_splitter.find('.splitterMask').remove();
-                }
+                $('.splitterMask').remove();
                 current_splitter = null;
                 $('body').css('cursor', 'auto');
                 settings.onDragEnd(e);
