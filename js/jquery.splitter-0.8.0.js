@@ -82,8 +82,13 @@
 
         var self = $.extend(this, {
             refresh: function() {
-                width = this.width();
-                height = this.height();
+                var new_width = this.width();
+                var new_height = this.height();
+                if (width != new_width || height != new_height) {
+                    width = this.width();
+                    height = this.height();
+                    self.position(position);
+                }
             },
             position: (function() {
                 if (settings.orientation == 'vertical') {

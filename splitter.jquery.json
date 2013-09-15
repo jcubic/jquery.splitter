@@ -2,7 +2,7 @@
     "name": "splitter",
     "title": "jQuery Splitter",
     "description": "jQuery Splitter is plugin that split your content with movable splitter between them.",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "keywords": [
         "splitter", "ui", "widget", "resize"
     ],
@@ -18,7 +18,6 @@
     "homepage": "https://github.com/jcubic/jquery.splitter",
     "bugs": "https://github.com/jcubic/jquery.splitter/issues",
     "demo": "http://jquery.jcubic.pl/splitter.php",
-    "download": "https://github.com/jcubic/jquery.splitter/archive/master.zip",
     "dependencies": {
         "jquery": ">=1.5"
     }
