@@ -225,31 +225,29 @@
                     var offset = current_splitter.offset();
                     if (current_splitter.orientation == 'vertical') {
                         var x = e.pageX - offset.left;
-                        if(x <= current_splitter.limit) {
+                        if (x <= current_splitter.limit) {
                             x = current_splitter.limit + 1;
-                        }
-                        else if (x >= current_splitter.width() - limit) {
+                        } else if (x >= current_splitter.width() - limit) {
                             x = current_splitter.width() - limit - 1;
                         }
                         if (x > current_splitter.limit &&
                             x < current_splitter.width()-limit) {
                             current_splitter.position(x, true);
                             current_splitter.find('.splitter_panel').trigger('splitter.resize');
-                            return false;
+                            e.preventDefault();
                         }
                     } else if (current_splitter.orientation == 'horizontal') {
                         var y = e.pageY-offset.top;
-                        if(y <= current_splitter.limit) {
+                        if (y <= current_splitter.limit) {
                             y = current_splitter.limit + 1;
-                        }
-                        else if (y >= current_splitter.height() - limit) {
+                        } else if (y >= current_splitter.height() - limit) {
                             y = current_splitter.height() - limit - 1;
                         }
                         if (y > current_splitter.limit &&
                             y < current_splitter.height()-limit) {
                             current_splitter.position(y, true);
                             current_splitter.trigger('splitter.resize');
-                            return false;
+                            e.preventDefault();
                         }
                     }
                     settings.onDrag(e);
