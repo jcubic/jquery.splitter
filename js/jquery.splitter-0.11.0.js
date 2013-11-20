@@ -216,10 +216,12 @@
                     return false;
                 }
             }).bind('mouseup.splitter', function(e) {
-                $('.splitterMask').remove();
-                $('body').css('cursor', 'auto');
-                current_splitter.settings.onDragEnd(e);
-                current_splitter = null;
+                if (current_splitter) {
+                    $('.splitterMask').remove();
+                    $('body').css('cursor', 'auto');
+                    current_splitter.settings.onDragEnd(e);
+                    current_splitter = null;
+                }
             }).bind('mousemove.splitter', function(e) {
                 if (current_splitter !== null) {
                     var limit = current_splitter.limit;
