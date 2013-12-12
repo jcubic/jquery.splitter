@@ -159,7 +159,9 @@
                 if (!not_null) {
                     $(document.documentElement).unbind('.splitter');
                     $(window).unbind('resize.splitter');
+                    self.data('splitter', null);
                     splitters = [];
+                    count = 0;
                 }
             }
         });
