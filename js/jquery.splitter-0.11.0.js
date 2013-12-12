@@ -134,7 +134,6 @@
                 return splitter_id === id;
             },
             destroy: function() {
-                self.data('splitter', null);
                 self.removeClass('splitter_panel');
                 splitter.unbind('mouseenter');
                 splitter.unbind('mouseleave');
@@ -160,7 +159,9 @@
                 if (!not_null) {
                     $(document.documentElement).unbind('.splitter');
                     $(window).unbind('resize.splitter');
+                    self.data('splitter', null);
                     splitters = [];
+                    count = 0;
                 }
             }
         });
