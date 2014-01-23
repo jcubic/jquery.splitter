@@ -47,3 +47,11 @@
 .splitter_panel .right_panel {
    right: 0;
 }
+.splitterMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}

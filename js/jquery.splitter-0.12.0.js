@@ -224,21 +224,15 @@
                 });
             });
             $(document.documentElement).bind('mousedown.splitter', function(e) {
-                if (splitter_id !== null) {
+                if (splitter_id !== null && e.which == 1) {
                     current_splitter = splitters[splitter_id];
-                    $('<div class="splitterMask"></div>').insertAfter(current_splitter);
-                    if (current_splitter.orientation == 'horizontal') {
-                        $('body').css('cursor', 'row-resize');
-                    } else if (current_splitter.orientation == 'vertical') {
-                        $('body').css('cursor', 'col-resize');
-                    }
+                    $('<div class="splitterMask"></div>').css('cursor', splitter.css('cursor')).insertAfter(current_splitter);
                     current_splitter.settings.onDragStart(e);
                     return false;
                 }
             }).bind('mouseup.splitter', function(e) {
                 if (current_splitter) {
                     $('.splitterMask').remove();
-                    $('body').css('cursor', 'auto');
                     current_splitter.settings.onDragEnd(e);
                     current_splitter = null;
                 }
