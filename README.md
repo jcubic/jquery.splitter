@@ -20,6 +20,7 @@ $('#foo').split({
 
 * Robert Tupelo-Schneck
 * Taras Strypko
+* [Yury Plashenkov](https://github.com/plashenkov)
 
 # Lincense
 
