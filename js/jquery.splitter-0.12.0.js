@@ -31,6 +31,7 @@
             limit: 100,
             orientation: 'horizontal',
             position: '50%',
+            invisible: false,
             onDragStart: $.noop,
             onDragEnd: $.noop,
             onDrag: $.noop
@@ -46,6 +47,9 @@
             panel_1 = children.first().addClass('top_panel')
             panel_2 = panel_1.next().addClass('bottom_panel');
             cls = 'hsplitter';
+        }
+        if (settings.invisible) {
+            cls += ' splitter-invisible';
         }
         var width = this.width();
         var height = this.height();
@@ -98,10 +102,17 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var sw = splitter.width()/2;
-                            splitter.css('left', position-sw);
-                            panel_1.width(position-sw);
-                            panel_2.width(self.width()-position-sw);
+                            var sw = splitter.width();
+                            var sw2 = sw/2;
+                            if (settings.invisible) {
+                                var pw = panel_1.width(position).outerWidth();
+                                panel_2.width(self.width()-pw);
+                                splitter.css('left', pw-sw2);
+                            } else {
+                                var pw = panel_1.width(position-sw2).outerWidth();
+                                panel_2.width(self.width()-pw-sw);
+                                splitter.css('left', pw);
+                            }
                         }
                         if (!silent) {
                             self.find('.splitter_panel').trigger('splitter.resize');
@@ -114,10 +125,17 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var sw = splitter.height()/2;
-                            splitter.css('top', position-sw);
-                            panel_1.height(position-sw);
-                            panel_2.height(self.height()-position-sw);
+                            var sw = splitter.height();
+                            var sw2 = sw/2;
+                            if (settings.invisible) {
+                                var pw = panel_1.height(position).outerHeight();
+                                panel_2.height(self.height()-pw);
+                                splitter.css('top', pw-sw2);
+                            } else {
+                                var pw = panel_1.height(position-sw2).outerHeight();
+                                panel_2.height(self.height()-pw-sw);
+                                splitter.css('top', pw);
+                            }
                         }
                         if (!silent) {
                             self.find('.splitter_panel').trigger('splitter.resize');
@@ -206,21 +224,15 @@
                 });
             });
             $(document.documentElement).bind('mousedown.splitter', function(e) {
-                if (splitter_id !== null) {
+                if (splitter_id !== null && e.which == 1) {
                     current_splitter = splitters[splitter_id];
-                    $('<div class="splitterMask"></div>').insertAfter(current_splitter);
-                    if (current_splitter.orientation == 'horizontal') {
-                        $('body').css('cursor', 'row-resize');
-                    } else if (current_splitter.orientation == 'vertical') {
-                        $('body').css('cursor', 'col-resize');
-                    }
+                    $('<div class="splitterMask"></div>').css('cursor', splitter.css('cursor')).insertAfter(current_splitter);
                     current_splitter.settings.onDragStart(e);
                     return false;
                 }
             }).bind('mouseup.splitter', function(e) {
                 if (current_splitter) {
                     $('.splitterMask').remove();
-                    $('body').css('cursor', 'auto');
                     current_splitter.settings.onDragEnd(e);
                     current_splitter = null;
                 }
@@ -238,7 +250,7 @@
                         if (x > current_splitter.limit &&
                             x < current_splitter.width()-limit) {
                             current_splitter.position(x, true);
-                            current_splitter.find('.splitter_panel').trigger('splitter.resize');
+                            current_splitter.trigger('splitter.resize');
                             e.preventDefault();
                         }
                     } else if (current_splitter.orientation == 'horizontal') {
