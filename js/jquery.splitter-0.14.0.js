@@ -1,6 +1,6 @@
 /*!
  * JQuery Spliter Plugin
- * Copyright (C) 2010-2013 Jakub Jankiewicz <http://jcubic.pl> 
+ * Copyright (C) 2010-2013 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -11,7 +11,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -185,10 +185,10 @@
         });
         self.bind('splitter.resize', function(e) {
             var pos = self.position();
-            if (self.orientation == 'vertical' && 
+            if (self.orientation == 'vertical' &&
                 pos > self.width()) {
                 pos = self.width() - self.limit-1;
-            } else if (self.orientation == 'horizontal' && 
+            } else if (self.orientation == 'horizontal' &&
                        pos > self.height()) {
                 pos = self.height() - self.limit-1;
             }
@@ -250,7 +250,8 @@
                         if (x > current_splitter.limit &&
                             x < current_splitter.width()-limit) {
                             current_splitter.position(x, true);
-                            current_splitter.trigger('splitter.resize');
+                            current_splitter.find('.splitter_panel').
+                                trigger('splitter.resize');
                             e.preventDefault();
                         }
                     } else if (current_splitter.orientation == 'horizontal') {
@@ -263,7 +264,8 @@
                         if (y > current_splitter.limit &&
                             y < current_splitter.height()-limit) {
                             current_splitter.position(y, true);
-                            current_splitter.trigger('splitter.resize');
+                            current_splitter.find('.splitter_panel').
+                                trigger('splitter.resize');
                             e.preventDefault();
                         }
                     }
