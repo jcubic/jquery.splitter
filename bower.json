@@ -1,5 +1,5 @@
 {
-  "name": "jcubic/jquery.splitter",
+  "name": "jquery.splitter",
   "version": "0.14.0",
   "main": [
     "./js/jquery.splitter-0.14.0.js"
