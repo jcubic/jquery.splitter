@@ -226,7 +226,7 @@
             $(document.documentElement).bind('mousedown.splitter', function(e) {
                 if (splitter_id !== null && e.which == 1) {
                     current_splitter = splitters[splitter_id];
-                    $('<div class="splitterMask"></div>').css('cursor', splitter.css('cursor')).insertAfter(current_splitter);
+                    $('<div class="splitterMask"></div>').css('cursor', current_splitter.children().eq(1).css('cursor')).insertAfter(current_splitter);
                     current_splitter.settings.onDragStart(e);
                     return false;
                 }
