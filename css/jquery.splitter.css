@@ -11,14 +11,14 @@
     background-color: grey;
     cursor: col-resize;
     z-index:900;
-    width: 4px;
+    width: 7px;
 }
 
 .splitter_panel .hsplitter {
     background-color: #5F5F5F;
     cursor: row-resize;
     z-index: 800;
-    height: 4px;
+    height: 7px;
 }
 .splitter_panel .vsplitter.splitter-invisible,
 .splitter_panel .hsplitter.splitter-invisible {
