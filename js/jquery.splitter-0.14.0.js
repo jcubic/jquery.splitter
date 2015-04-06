@@ -66,7 +66,7 @@
             if (typeof position === 'number') {
                 return position;
             } else if (typeof position === 'string') {
-                var match = position.match(/^([0-9]+)(px|%)$/);
+                var match = position.match(/^([0-9\.]+)(px|%)$/);
                 if (match) {
                     if (match[2] == 'px') {
                         return +match[1];
