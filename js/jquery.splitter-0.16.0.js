@@ -169,7 +169,8 @@
                 }
                 self.unbind('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
-                splitters[id] = null;
+                splitters.splice(id, 1);
+                count--;
                 splitter.remove();
                 var not_null = false;
                 for (var i=splitters.length; i--;) {
