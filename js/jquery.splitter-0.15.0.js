@@ -225,7 +225,7 @@
         if (splitters.length == 0) { // first time bind events to document
             $(window).bind('resize.splitter', function() {
                 $.each(splitters, function(i, splitter) {
-                    splitter.refresh();
+                    splitter && splitter.refresh && splitter.refresh();
                 });
             });
             $(document.documentElement).bind('mousedown.splitter touchstart.splitter', function(e) {
