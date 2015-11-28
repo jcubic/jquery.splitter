@@ -169,7 +169,7 @@
                 }
                 self.unbind('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
-                splitters.splice(id, 1);
+                splitters[i] = null;
                 count--;
                 splitter.remove();
                 var not_null = false;
@@ -226,7 +226,9 @@
         if (splitters.length == 0) { // first time bind events to document
             $(window).bind('resize.splitter', function() {
                 $.each(splitters, function(i, splitter) {
-                    splitter.refresh();
+                    if (splitter) {
+                        splitter.refresh();
+                    }
                 });
             });
             $(document.documentElement).bind('mousedown.splitter touchstart.splitter', function(e) {
