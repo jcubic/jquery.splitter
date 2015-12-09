@@ -231,16 +231,21 @@
                     }
                 });
             });
-            $(document.documentElement).bind('mousedown.splitter touchstart.splitter', function(e) {
+            $(document.documentElement).on('mousedown.splitter touchstart.splitter', function(e) {
                 if (splitter_id !== null) {
                     current_splitter = splitters[splitter_id];
-                    $('<div class="splitterMask"></div>').css('cursor', current_splitter.children().eq(1).css('cursor')).insertAfter(current_splitter);
+                    setTimeout(function() {
+                        $('<div class="splitterMask"></div>').
+                            css('cursor', current_splitter.children().eq(1).css('cursor')).
+                            insertAfter(current_splitter);
+                    });
                     current_splitter.settings.onDragStart(e);
-                    return false;
                 }
             }).bind('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function(e) {
                 if (current_splitter) {
-                    $('.splitterMask').remove();
+                    setTimeout(function() {
+                        $('.splitterMask').remove();
+                    });
                     current_splitter.settings.onDragEnd(e);
                     current_splitter = null;
                 }
@@ -264,7 +269,7 @@
                             current_splitter.position(x, true);
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
-                            e.preventDefault();
+                            //e.preventDefault();
                         }
                     } else if (current_splitter.orientation == 'horizontal') {
                         var pageY = e.pageY;
@@ -282,12 +287,12 @@
                             current_splitter.position(y, true);
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
-                            e.preventDefault();
+                            //e.preventDefault();
                         }
                     }
                     current_splitter.settings.onDrag(e);
                 }
-            });
+            });//*/
         }
         splitters.push(self);
         self.data('splitter', self);
