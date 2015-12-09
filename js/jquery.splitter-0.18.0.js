@@ -172,6 +172,7 @@
                 splitters[i] = null;
                 count--;
                 splitter.remove();
+                self.removeData('splitter');
                 var not_null = false;
                 for (var i=splitters.length; i--;) {
                     if (splitters[i] !== null) {
@@ -183,7 +184,6 @@
                 if (!not_null) {
                     $(document.documentElement).unbind('.splitter');
                     $(window).unbind('resize.splitter');
-                    self.data('splitter', null);
                     splitters = [];
                     count = 0;
                 }
