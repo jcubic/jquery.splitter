@@ -44,7 +44,7 @@
             panel_2 = panel_1.next().addClass('right_panel');
             cls = 'vsplitter';
         } else if (settings.orientation == 'horizontal') {
-            panel_1 = children.first().addClass('top_panel')
+            panel_1 = children.first().addClass('top_panel');
             panel_2 = panel_1.next().addClass('bottom_panel');
             cls = 'hsplitter';
         }
@@ -103,13 +103,13 @@
                         } else {
                             position = get_position(n);
                             var sw = splitter.width();
-                            var sw2 = sw/2;
+                            var sw2 = sw/2, pw;
                             if (settings.invisible) {
-                                var pw = panel_1.width(position).outerWidth();
+                                pw = panel_1.width(position).outerWidth();
                                 panel_2.width(self.width()-pw);
                                 splitter.css('left', pw-sw2);
                             } else {
-                                var pw = panel_1.width(position-sw2).outerWidth();
+                                pw = panel_1.width(position-sw2).outerWidth();
                                 panel_2.width(self.width()-pw-sw);
                                 splitter.css('left', pw);
                             }
@@ -126,13 +126,13 @@
                         } else {
                             position = get_position(n);
                             var sw = splitter.height();
-                            var sw2 = sw/2;
+                            var sw2 = sw/2, pw;
                             if (settings.invisible) {
-                                var pw = panel_1.height(position).outerHeight();
+                                pw = panel_1.height(position).outerHeight();
                                 panel_2.height(self.height()-pw);
                                 splitter.css('top', pw-sw2);
                             } else {
-                                var pw = panel_1.height(position-sw2).outerHeight();
+                                pw = panel_1.height(position-sw2).outerHeight();
                                 panel_2.height(self.height()-pw-sw);
                                 splitter.css('top', pw);
                             }
@@ -223,7 +223,7 @@
             pos = settings.limit;
         }
         self.position(pos, true);
-        if (splitters.length == 0) { // first time bind events to document
+        if (splitters.length === 0) { // first time bind events to document
             $(window).bind('resize.splitter', function() {
                 $.each(splitters, function(i, splitter) {
                     if (splitter) {
