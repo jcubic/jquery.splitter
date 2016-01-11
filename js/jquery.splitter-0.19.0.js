@@ -1,6 +1,6 @@
 /*!
  * JQuery Spliter Plugin
- * Copyright (C) 2010-2013 Jakub Jankiewicz <http://jcubic.pl>
+ * Copyright (C) 2010-2016 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -294,7 +294,7 @@
                 }
             });//*/
         }
-        splitters.push(self);
+        splitters[id] = self;
         self.data('splitter', self);
         return self;
     };
