@@ -115,6 +115,7 @@
                             }
                         }
                         if (!silent) {
+                            self.trigger('splitter.resize');
                             self.find('.splitter_panel').trigger('splitter.resize');
                         }
                         return self;
