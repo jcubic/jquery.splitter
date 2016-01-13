@@ -139,6 +139,7 @@
                             }
                         }
                         if (!silent) {
+                            self.trigger('splitter.resize');
                             self.find('.splitter_panel').trigger('splitter.resize');
                         }
                         return self;
@@ -169,6 +170,7 @@
                     panel_2.removeClass('bottom_panel');
                 }
                 self.unbind('splitter.resize');
+                self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[i] = null;
                 count--;
@@ -287,6 +289,7 @@
                         if (y > current_splitter.limit &&
                             y < current_splitter.height()-limit) {
                             current_splitter.position(y, true);
+                            current_splitter.trigger('splitter.resize');
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
                             //e.preventDefault();
