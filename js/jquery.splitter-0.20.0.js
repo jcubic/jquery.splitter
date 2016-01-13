@@ -268,6 +268,7 @@
                         if (x > current_splitter.limit &&
                             x < current_splitter.width()-limit) {
                             current_splitter.position(x, true);
+                            current_splitter.trigger('splitter.resize');
                             current_splitter.find('.splitter_panel').
                                 trigger('splitter.resize');
                             //e.preventDefault();
