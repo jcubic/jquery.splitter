@@ -204,6 +204,7 @@
             if (pos < self.limit) {
                 pos = self.limit + 1;
             }
+            e.stopPropagation();
             self.position(pos, true);
         });
         //inital position of splitter
