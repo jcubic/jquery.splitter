@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.20.0
+ * JQuery Spliter Plugin version 0.20.1
  * Copyright (C) 2010-2016 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
