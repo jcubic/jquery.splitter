@@ -1,9 +1,9 @@
 {
   "name": "jquery.splitter",
-  "version": "0.17.0",
+  "version": "0.20.0",
   "main": [
-    "./js/jquery.splitter-0.17.0.js"
+    "./js/jquery.splitter.js"
   ],
   "description": "jQuery Splitter is plugin that split your content with movable splitter between them",
-  "license": "GNU Lesser General Public License"
+  "license": "LGPL-3.0"
 }
