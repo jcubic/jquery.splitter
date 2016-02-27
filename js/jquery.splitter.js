@@ -92,7 +92,7 @@
                 if (width != new_width || height != new_height) {
                     width = this.width();
                     height = this.height();
-                    self.position(position);
+                    self.position( position === undefined ? true : position);
                 }
             },
             position: (function() {
@@ -101,8 +101,8 @@
                         if (n === undefined) {
                             return position;
                         } else {
-                            position = get_position(n);
                             var sw = splitter.width();
+                            position = n === true ? sw : get_position(n);
                             var sw2 = sw/2, pw;
                             if (settings.invisible) {
                                 pw = panel_1.width(position).outerWidth();
@@ -125,8 +125,8 @@
                         if (n === undefined) {
                             return position;
                         } else {
-                            position = get_position(n);
                             var sw = splitter.height();
+                            position = n === true ? sw : get_position(n);
                             var sw2 = sw/2, pw;
                             if (settings.invisible) {
                                 pw = panel_1.height(position).outerHeight();
