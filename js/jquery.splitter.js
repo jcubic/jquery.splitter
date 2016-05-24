@@ -172,7 +172,7 @@
                 self.unbind('splitter.resize');
                 self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
-                splitters[i] = null;
+                splitters[id] = null;
                 count--;
                 splitter.remove();
                 self.removeData('splitter');
