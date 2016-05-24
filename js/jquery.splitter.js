@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.20.1
+ * JQuery Spliter Plugin version 0.21.0
  * Copyright (C) 2010-2016 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -172,7 +172,7 @@
                 self.unbind('splitter.resize');
                 self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
-                splitters[i] = null;
+                splitters[id] = null;
                 count--;
                 splitter.remove();
                 self.removeData('splitter');
@@ -227,7 +227,8 @@
             pos = settings.limit;
         }
         self.position(pos, true);
-        if (splitters.length === 0) { // first time bind events to document
+        // bind events to document if no splitters
+        if (splitters.filter(Boolean).length === 0) {
             $(window).bind('resize.splitter', function() {
                 $.each(splitters, function(i, splitter) {
                     if (splitter) {
