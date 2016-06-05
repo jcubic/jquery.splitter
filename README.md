@@ -6,11 +6,24 @@ jQuery Splitter is plugin that split your content with movable splitter between 
 
 ```javascript
 $('#foo').split({
-    orientation: 'horizontal',
+    orientation: 'vertical',
     limit: 10,
     position: '50%' // if there is no percentage it interpret it as pixels
 });
 ```
+
+```html
+<div id="foo">
+    <div id="leftPane">Foo</div>
+    <div id="rightPane">Bar</div>
+</div>
+```
+
+# Options
+
+* orientation - string 'horizontal' or 'vertical'.
+* limit - number how many pixels where you can't move the splitter on the edge.
+* position - number or string with % indicate initial position of the splitter.
 
 # Demo
 
