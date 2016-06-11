@@ -5,7 +5,7 @@ jQuery Splitter is plugin that split your content with movable splitter between 
 # Example
 
 ```javascript
-$('#foo').split({
+$('#foo').height(200).split({
     orientation: 'vertical',
     limit: 10,
     position: '50%' // if there is no percentage it interpret it as pixels
@@ -18,6 +18,8 @@ $('#foo').split({
     <div id="rightPane">Bar</div>
 </div>
 ```
+
+**Note**: You need to set the height of the container for splitter to work.
 
 # Options
 
