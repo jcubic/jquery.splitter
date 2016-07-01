@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.21.0
+ * JQuery Spliter Plugin version 0.22.0
  * Copyright (C) 2010-2016 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -238,6 +238,7 @@
             });
             $(document.documentElement).on('mousedown.splitter touchstart.splitter', function(e) {
                 if (splitter_id !== null) {
+                    e.preventDefault();
                     current_splitter = splitters[splitter_id];
                     setTimeout(function() {
                         $('<div class="splitterMask"></div>').
