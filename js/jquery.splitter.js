@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.22.0
+ * JQuery Spliter Plugin version 0.23.0
  * Copyright (C) 2010-2016 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -50,6 +50,10 @@
         }
         if (settings.invisible) {
             cls += ' splitter-invisible';
+        }
+        var parent = this.parents('.right_panel, .left_panel').eq(0);
+        if (parent.length) {
+            this.height(parent.height());
         }
         var width = this.width();
         var height = this.height();
@@ -113,6 +117,8 @@
                                 panel_2.width(self.width()-pw-sw);
                                 splitter.css('left', pw);
                             }
+                            panel_1.find('.splitter_panel').eq(0).height(self.height());
+                            panel_2.find('.splitter_panel').eq(0).height(self.height());
                         }
                         if (!silent) {
                             self.trigger('splitter.resize');
