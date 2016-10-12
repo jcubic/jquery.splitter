@@ -37,7 +37,7 @@ $('#foo').height(200).split({
 * Taras Strypko
 * [Yury Plashenkov](https://github.com/plashenkov)
 
-# Lincense
+# License
 
 Copyright (C) 2010-2013 Jakub Jankiewicz &lt;<http://jcubic.pl>&gt;
 
