@@ -2,7 +2,8 @@
   "name": "jquery.splitter",
   "version": "0.24.0",
   "main": [
-    "./js/jquery.splitter.js"
+    "./js/jquery.splitter.js",
+	"./css/jquery.splitter.css"
   ],
   "description": "jQuery Splitter is plugin that split your content with movable splitter between them",
   "license": "LGPL-3.0"
