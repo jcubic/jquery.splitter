@@ -51,10 +51,6 @@
         if (settings.invisible) {
             cls += ' splitter-invisible';
         }
-        var parent = this.parents('.right_panel, .left_panel').eq(0);
-        if (parent.length) {
-            this.height(parent.height());
-        }
         var width = this.width();
         var height = this.height();
         var id = count++;
@@ -233,6 +229,10 @@
             pos = settings.limit;
         }
         self.position(pos, true);
+		var parent = this.closest('.splitter_panel');
+        if (parent.length) {
+            this.height(parent.height());
+        }
         // bind events to document if no splitters
         if (splitters.filter(Boolean).length === 0) {
             $(window).bind('resize.splitter', function() {
