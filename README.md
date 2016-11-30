@@ -5,10 +5,13 @@ jQuery Splitter is plugin that split your content with movable splitter between 
 # Example
 
 ```javascript
-$('#foo').height(200).split({
+var splitter = $('#foo').height(200).split({
     orientation: 'vertical',
     limit: 10,
-    position: '50%' // if there is no percentage it interpret it as pixels
+    position: '50%', // if there is no percentage it interpret it as pixels
+	onDrag: function(event) {
+		console.log(splitter.position());
+	}
 });
 ```
 
