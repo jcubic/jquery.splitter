@@ -29,6 +29,7 @@ var splitter = $('#foo').height(200).split({
 * orientation - string 'horizontal' or 'vertical'.
 * limit - number how many pixels where you can't move the splitter on the edge.
 * position - number or string with % indicate initial position of the splitter.
+* onDrag - event fired when draging the splitter, the event object is from mousemove
 
 # Demo
 
