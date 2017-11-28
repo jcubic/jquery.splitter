@@ -4,9 +4,6 @@
 jQuery Splitter is plugin that split your content with movable splitter between them.
 
 
-<a href="https://app.codesponsor.io/link/mm9ExaTRnnyn4TH8MFkSL6zG/jcubic/jquery.splitter" rel="nofollow"><img src="https://app.codesponsor.io/embed/mm9ExaTRnnyn4TH8MFkSL6zG/jcubic/jquery.splitter.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
-
 # Example
 
 ```javascript
@@ -14,9 +11,9 @@ var splitter = $('#foo').height(200).split({
     orientation: 'vertical',
     limit: 10,
     position: '50%', // if there is no percentage it interpret it as pixels
-	onDrag: function(event) {
-		console.log(splitter.position());
-	}
+    onDrag: function(event) {
+        console.log(splitter.position());
+    }
 });
 ```
 
