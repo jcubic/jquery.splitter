@@ -42,9 +42,10 @@ var splitter = $('#foo').height(200).split({
 * Robert Tupelo-Schneck
 * Taras Strypko
 * [Yury Plashenkov](https://github.com/plashenkov)
+* [@beskorsova](https://github.com/beskorsova)
 
 # License
 
-Copyright (C) 2010-2013 Jakub Jankiewicz &lt;<http://jcubic.pl>&gt;
+Copyright (C) 2010-2017 Jakub Jankiewicz &lt;<http://jcubic.pl>&gt;
 
 Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
