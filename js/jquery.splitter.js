@@ -84,10 +84,10 @@
                 //throw 'position have invalid type';
             }
         }
-		
+        
         function setLimit(limit) {
             if(!isNaN(parseFloat(limit)) && isFinite(limit)){
-                return new{
+                return {
                     leftUpper: limit,
                     rightBottom: limit
                 }
@@ -239,7 +239,7 @@
             pos = settings.limit.leftUpper;
         }
         self.position(pos, true);
-		var parent = this.closest('.splitter_panel');
+        var parent = this.closest('.splitter_panel');
         if (parent.length) {
             this.height(parent.height());
         }
