@@ -13,10 +13,30 @@
     <![endif]-->
 <script>
 jQuery(function($) {
-   $('#widget').width(700).height(400).split({orientation:'vertical', limit:100, position:'70%'});
-   $('#foo').split({orientation:'horizontal', limit:10});
-   $('#a').split({orientation:'vertical', limit:10});
-   $('#spliter2').css({width: 200, height: 300}).split({orientation: 'horizontal', limit: 20});
+   $('#widget').width(700).height(400).split({
+       orientation: 'vertical',
+       limit: 100,
+       position: '70%',
+       percent: true
+   });
+   $('#foo').split({
+       orientation: 'horizontal',
+       limit: 10,
+       percent: true
+   });
+   $('#a').split({
+       orientation: 'vertical',
+       limit: 10,
+       percent: true
+   });
+   $('#spliter2').css({
+       width: 200,
+       height: 300
+   }).split({
+       orientation: 'horizontal',
+       limit: 20,
+       percent: true
+   });
 });
 </script>
 <style>

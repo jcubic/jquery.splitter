@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.25.0
+ * JQuery Spliter Plugin version 0.26.0
  * Copyright (C) 2010-2017 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,8 @@
             invisible: false,
             onDragStart: $.noop,
             onDragEnd: $.noop,
-            onDrag: $.noop
+            onDrag: $.noop,
+            percent: false
         }, options || {});
         this.settings = settings;
         var cls;
@@ -84,13 +85,13 @@
                 //throw 'position have invalid type';
             }
         }
-        
+
         function setLimit(limit) {
             if(!isNaN(parseFloat(limit)) && isFinite(limit)){
                 return {
                     leftUpper: limit,
                     rightBottom: limit
-                }
+                };
             }
             return limit;
         }
@@ -114,14 +115,22 @@
                             position = get_position(n);
                             var sw = splitter.width();
                             var sw2 = sw/2, pw;
+                            var width = self.width();
                             if (settings.invisible) {
                                 pw = panel_1.width(position).outerWidth();
-                                panel_2.width(self.width()-pw);
-                                splitter.css('left', pw-sw2);
+                                panel_2.width(width - pw);
+                                splitter.css('left', pw - sw2);
                             } else {
-                                pw = panel_1.width(position-sw2).outerWidth();
-                                panel_2.width(self.width()-pw-sw);
-                                splitter.css('left', pw);
+                                if (settings.percent) {
+                                    var w1 = (position - sw2) / width * 100;
+                                    pw = panel_1.css('width', w1 + '%').outerWidth();
+                                    panel_2.css('width', (width-pw-sw) / width * 100 + '%');
+                                    splitter.css('left', (pw / width * 100) + '%');
+                                } else {
+                                    pw = panel_1.css('width', position - sw2).outerWidth();
+                                    panel_2.width(width - pw - sw);
+                                    splitter.css('left', pw);
+                                }
                             }
                             panel_1.find('.splitter_panel').eq(0).height(self.height());
                             panel_2.find('.splitter_panel').eq(0).height(self.height());
@@ -139,14 +148,20 @@
                         } else {
                             position = get_position(n);
                             var sw = splitter.height();
-                            var sw2 = sw/2, pw;
+                            var sw2 = sw / 2, pw;
+                            var height = self.height();
                             if (settings.invisible) {
                                 pw = panel_1.height(position).outerHeight();
-                                panel_2.height(self.height()-pw);
-                                splitter.css('top', pw-sw2);
+                                panel_2.height(height - pw);
+                                splitter.css('top', pw - sw2);
+                            } else if (settings.percent) {
+                                var h1 = (position - sw2) / height * 100;
+                                pw = panel_1.css('height', h1 + '%').outerHeight();
+                                panel_2.css('height', ((height - pw - sw) / height * 100) + '%');
+                                splitter.css('top', (pw / height * 100) + '%');
                             } else {
-                                pw = panel_1.height(position-sw2).outerHeight();
-                                panel_2.height(self.height()-pw-sw);
+                                pw = panel_1.height(position - sw2).outerHeight();
+                                panel_2.height(height - pw - sw);
                                 splitter.css('top', pw);
                             }
                         }
