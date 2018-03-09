@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.26.0
+ * JQuery Spliter Plugin version 0.27.0
  * Copyright (C) 2010-2017 Jakub Jankiewicz <http://jcubic.pl>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -86,7 +86,7 @@
             }
         }
 
-        function setLimit(limit) {
+        function set_limit(limit) {
             if(!isNaN(parseFloat(limit)) && isFinite(limit)){
                 return {
                     leftUpper: limit,
@@ -105,6 +105,16 @@
                     height = this.height();
                     self.position(position);
                 }
+            },
+            option: function(name, value) {
+                if (name === 'position') {
+                    return self.position(value);
+                } else if (typeof value === 'undefined') {
+                    return settings[name];
+                } else {
+                    settings[name] = value;
+                }
+                return self;
             },
             position: (function() {
                 if (settings.orientation == 'vertical') {
@@ -176,7 +186,7 @@
                 }
             })(),
             orientation: settings.orientation,
-            limit: setLimit(settings.limit),
+            limit: set_limit(settings.limit),
             isActive: function() {
                 return splitter_id === id;
             },
