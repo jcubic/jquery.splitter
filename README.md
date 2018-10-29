@@ -36,6 +36,16 @@ var splitter = $('#foo').height(200).split({
 * onDrag - event fired when draging the splitter, the event object is from mousemove
 * percent - boolean that indicate if spliter should use % instead of px (for use in print)
 
+# Methods
+
+Instance returned by splitter is jQuery object with additional methods:
+
+* `refresh()`
+* `option (name[, value])` - option setter/getter
+* `position([number])` - position setter/getter.
+* `isActive` - returns `boolean`
+* `destroy()` - remove splitter data
+
 # Demo
 
 <http://jquery.jcubic.pl/splitter.php>
