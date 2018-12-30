@@ -59,6 +59,6 @@ Instance returned by splitter is jQuery object with additional methods:
 
 # License
 
-Copyright (C) 2010-2018 Jakub Jankiewicz &lt;<http://jcubic.pl/me>&gt;
+Copyright (C) 2010-2018 Jakub T. Jankiewicz &lt;<https://jcubic.pl/me>&gt;
 
 Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
