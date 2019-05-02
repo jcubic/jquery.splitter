@@ -53,7 +53,7 @@ Instance returned by splitter is jQuery object with additional methods:
 
 * `refresh()`
 * `option (name[, value])` - option setter/getter
-* `position([number])` - position setter/getter.
+* `position(number)`|`position([num1, num2, ...])`|`position()` - position setter/getter (if you have 2 panels you can use single number to set the position for more panels you need to use array with `panels - 1` same as number of splitters)
 * `isActive` - returns `boolean`
 * `destroy()` - remove splitter data
 
