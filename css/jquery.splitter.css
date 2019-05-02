@@ -1,6 +1,6 @@
 /*!
- * StyleSheet for JQuery splitter Plugin version 0.27.1
- * Copyright (C) 2010-2018 Jakub T. Jankiewicz <https://jcubic.pl/me>
+ * StyleSheet for JQuery splitter Plugin version 0.28.0
+ * Copyright (C) 2010-2019 Jakub T. Jankiewicz <https://jcubic.pl/me>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -35,21 +35,41 @@
 .splitter_panel .hsplitter.splitter-invisible {
     background: none;
 }
-.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel,
-.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
+.splitter_panel .vsplitter,
+.splitter_panel .left_panel,
+.splitter_panel .right_panel,
+.splitter_panel .hsplitter,
+.splitter_panel .top_panel,
+.splitter_panel .bottom_panel,
+.splitter_panel .horizontal_panel,
+.splitter_panel .vertical_panel {
     position: absolute;
     overflow: auto;
 }
-.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel {
+
+.splitter_panel .vsplitter,
+.splitter_panel .left_panel,
+.splitter_panel .right_panel,
+.splitter_panel .vertical_panel {
   height: 100%;
 }
-.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
+.splitter_panel .hsplitter,
+.splitter_panel .top_panel,
+.splitter_panel .bottom_panel,
+.splitter_panel .horizontal_panel {
   width: 100%;
 }
-.splitter_panel .top_panel, .splitter_panel .left_panel, .splitter_panel .vsplitter {
+.splitter_panel .top_panel,
+.splitter_panel .left_panel,
+.splitter_panel .vsplitter,
+.splitter_panel .vertical_panel {
    top: 0;
 }
-.splitter_panel .top_panel, .splitter_panel .bottom_panel, .splitter_panel .left_panel, .splitter_panel .hsplitter {
+.splitter_panel .top_panel,
+.splitter_panel .bottom_panel,
+.splitter_panel .left_panel,
+.splitter_panel .hsplitter,
+.splitter_panel .horizontal_panel {
    left: 0;
 }
 .splitter_panel .bottom_panel {

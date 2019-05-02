@@ -1,6 +1,6 @@
 /*!
- * JQuery Spliter Plugin version 0.27.1
- * Copyright (C) 2010-2018 Jakub T. Jankiewicz <https://jcubic.pl/me>
+ * JQuery Spliter Plugin version 0.28.0
+ * Copyright (C) 2010-2019 Jakub T. Jankiewicz <https://jcubic.pl/me>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,16 +15,49 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-(function($, undefined) {
+/* global module, define, global, require, setTimeout */
+// UMD taken from https://github.com/umdjs/umd
+(function(factory, undefined) {
+    var root = typeof window !== 'undefined' ? window : global;
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        // istanbul ignore next
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function(root, jQuery) {
+            if (jQuery === undefined) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if (window !== undefined) {
+                    jQuery = require('jquery');
+                } else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            factory(jQuery);
+            return jQuery;
+        };
+    } else {
+        // Browser
+        // istanbul ignore next
+        factory(root.jQuery);
+    }
+})(function($, undefined) {
     var count = 0;
     var splitter_id = null;
     var splitters = [];
     var current_splitter = null;
+    var current_splitter_index = null;
     $.fn.split = function(options) {
         var data = this.data('splitter');
         if (data) {
             return data;
         }
+        var panels = [];
+        var $splitters = [];
         var panel_1;
         var panel_2;
         var settings = $.extend({
@@ -40,33 +73,57 @@
         this.settings = settings;
         var cls;
         var children = this.children();
-        if (settings.orientation == 'vertical') {
-            panel_1 = children.first().addClass('left_panel');
-            panel_2 = panel_1.next().addClass('right_panel');
-            cls = 'vsplitter';
-        } else if (settings.orientation == 'horizontal') {
-            panel_1 = children.first().addClass('top_panel');
-            panel_2 = panel_1.next().addClass('bottom_panel');
-            cls = 'hsplitter';
+        if (children.length === 2) {
+            if (settings.orientation == 'vertical') {
+                panel_1 = children.first().addClass('left_panel');
+                panel_2 = panel_1.next().addClass('right_panel');
+                cls = 'vsplitter';
+            } else if (settings.orientation == 'horizontal') {
+                panel_1 = children.first().addClass('top_panel');
+                panel_2 = panel_1.next().addClass('bottom_panel');
+                cls = 'hsplitter';
+            }
+            panels = [panel_1, panel_2];
+        } else {
+            children.each(function() {
+                var panel = $(this);
+                if (settings.orientation == 'vertical') {
+                    panel.addClass('vertical_panel');
+                    cls = 'vsplitter';
+                } else {
+                    panel.addClass('horizontal_panel');
+                    cls = 'hsplitter';
+                }
+                panels.push(panel);
+            });
         }
         if (settings.invisible) {
             cls += ' splitter-invisible';
         }
         var width = this.width();
         var height = this.height();
-        var id = count++;
         this.addClass('splitter_panel');
-        var splitter = $('<div/>').addClass(cls).bind('mouseenter touchstart', function() {
-            splitter_id = id;
-        }).bind('mouseleave touchend', function() {
-            splitter_id = null;
-        }).insertAfter(panel_1);
+        var id = count++;
+        panels.slice(0, -1).forEach(function(panel, i) {
+            var splitter = $('<div/>').addClass(cls).bind('mouseenter touchstart', function() {
+                splitter_id = id;
+                current_splitter_index = splitter.index() - i - 1;
+            }).bind('mouseleave touchend', function() {
+                splitter_id = null;
+                current_splitter_index = null;
+            }).insertAfter(panel);
+            $splitters.push(splitter);
+        });
         var position;
 
         function get_position(position) {
+            if (position instanceof Array) {
+                return position.map(get_position);
+            }
             if (typeof position === 'number') {
                 return position;
-            } else if (typeof position === 'string') {
+            }
+            if (typeof position === 'string') {
                 var match = position.match(/^([0-9\.]+)(px|%)$/);
                 if (match) {
                     if (match[2] == 'px') {
@@ -123,27 +180,54 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var sw = splitter.width();
-                            var sw2 = sw/2, pw;
-                            var width = self.width();
+                            if (!(position instanceof Array)) {
+                                position = [position];
+                            }
+                            if (position.length !== panels.length - 1) {
+                                throw new Error('position array need to equal splitters length');
+                            }
+                            var width = self.css('visiblity', 'hidden').width();
+                            var pw = 0;
+                            var sw_sum = 0;
+                            for (var i = 0; i < position.length; ++i) {
+                                var splitter = $splitters[i];
+                                var panel = panels[i];
+                                var pos = position[i];
+                                var splitter_width = splitter.width();
+                                var sw2 = splitter_width/2;
+                                if (settings.invisible) {
+                                    pw += panel.width(pos).outerWidth();
+                                    splitter.css('left', pw - (sw2 * (i + 1)));
+                                } else if (settings.percent) {
+                                    var w1 = (pos - sw2) / width * 100;
+                                    var l1 = (pw + sw_sum) / width * 100;
+                                    panel.css('left', l1 + '%');
+                                    pw += panel.css('width', w1 + '%').outerWidth();
+                                    splitter.css('left', (pw + sw_sum) / width * 100 + '%');
+                                } else {
+                                    panel.css('left', pw + sw_sum);
+                                    pw += panel.css('width', pos - sw2).outerWidth();
+                                    splitter.css('left', pw + sw_sum);
+                                }
+                                sw_sum += splitter_width;
+                            }
+                            var panel_last = panels[i];
                             if (settings.invisible) {
-                                pw = panel_1.width(position).outerWidth();
-                                panel_2.width(width - pw);
-                                splitter.css('left', pw - sw2);
+                                panel_last.width(width - pw);
                             } else {
                                 if (settings.percent) {
-                                    var w1 = (position - sw2) / width * 100;
-                                    pw = panel_1.css('width', w1 + '%').outerWidth();
-                                    panel_2.css('width', (width-pw-sw) / width * 100 + '%');
-                                    splitter.css('left', (pw / width * 100) + '%');
+                                    panel_last.css({
+                                        width: (width - pw - sw_sum) / width * 100 + '%',
+                                        left: (pw + sw_sum) / width * 100 + '%'
+                                    });
                                 } else {
-                                    pw = panel_1.css('width', position - sw2).outerWidth();
-                                    panel_2.width(width - pw - sw);
-                                    splitter.css('left', pw);
+                                    panel_last.css({
+                                        width: width - pw - sw_sum,
+                                        left: pw + sw_sum
+                                    });
                                 }
                             }
-                            panel_1.find('.splitter_panel').eq(0).height(self.height());
-                            panel_2.find('.splitter_panel').eq(0).height(self.height());
+                            self.css('visiblity', '');
                         }
                         if (!silent) {
                             self.trigger('splitter.resize');
@@ -157,23 +241,45 @@
                             return position;
                         } else {
                             position = get_position(n);
-                            var sw = splitter.height();
-                            var sw2 = sw / 2, pw;
-                            var height = self.height();
-                            if (settings.invisible) {
-                                pw = panel_1.height(position).outerHeight();
-                                panel_2.height(height - pw);
-                                splitter.css('top', pw - sw2);
-                            } else if (settings.percent) {
-                                var h1 = (position - sw2) / height * 100;
-                                pw = panel_1.css('height', h1 + '%').outerHeight();
-                                panel_2.css('height', ((height - pw - sw) / height * 100) + '%');
-                                splitter.css('top', (pw / height * 100) + '%');
-                            } else {
-                                pw = panel_1.height(position - sw2).outerHeight();
-                                panel_2.height(height - pw - sw);
-                                splitter.css('top', pw);
+                            if (!(position instanceof Array)) {
+                                position = [position];
                             }
+                            if (position.length !== panels.length - 1) {
+                                throw new Error('position array need to equal splitters length');
+                            }
+                            var height = self.css('visiblity', 'hidden').height();
+                            var pw = 0;
+                            for (var i = 0; i < position.length; ++i) {
+                                var splitter = $splitters[i];
+                                var panel = panels[i];
+                                var pos = position[i];
+                                var splitter_height = splitter.height();
+                                var sw2 = splitter_height/2;
+                                if (settings.invisible) {
+                                    pw += panel.height(pos).outerHeight();
+                                    splitter.css('top', pw - (sw2 * (i + 1)));
+                                } else if (settings.percent) {
+                                    var w1 = (pos - sw2) / height * 100;
+                                    pw += panel.css('height', w1 + '%').outerHeight();
+                                    splitter.css('top', (pw / height * 100) + '%');
+                                } else {
+                                    pw += panel.css('height', pos - sw2).outerHeight();
+                                    splitter.css('top', pw);
+                                }
+                            }
+                            var panel_last = panels[i];
+                            if (settings.invisible) {
+                                panel_last.height(height - pw);
+                            } else {
+                                var s_sum = splitter_height * i;
+                                if (settings.percent) {
+                                    var percent = (height - pw - s_sum) / height * 100 + '%';
+                                    panel_last.css('height', percent);
+                                } else {
+                                    panel_last.height(height - pw - s_sum);
+                                }
+                            }
+                            self.css('visiblity', '');
                         }
                         if (!silent) {
                             self.trigger('splitter.resize');
@@ -185,6 +291,8 @@
                     return $.noop;
                 }
             })(),
+            _splitters: $splitters,
+            _panels: panels,
             orientation: settings.orientation,
             limit: set_limit(settings.limit),
             isActive: function() {
@@ -192,13 +300,6 @@
             },
             destroy: function() {
                 self.removeClass('splitter_panel');
-                splitter.unbind('mouseenter');
-                splitter.unbind('mouseleave');
-                splitter.unbind('touchstart');
-                splitter.unbind('touchmove');
-                splitter.unbind('touchend');
-                splitter.unbind('touchleave');
-                splitter.unbind('touchcancel');
                 if (settings.orientation == 'vertical') {
                     panel_1.removeClass('left_panel');
                     panel_2.removeClass('right_panel');
@@ -211,7 +312,17 @@
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
                 count--;
-                splitter.remove();
+                $splitters.each(function() {
+                    var splitter = $(this);
+                    splitter.unbind('mouseenter');
+                    splitter.unbind('mouseleave');
+                    splitter.unbind('touchstart');
+                    splitter.unbind('touchmove');
+                    splitter.unbind('touchend');
+                    splitter.unbind('touchleave');
+                    splitter.unbind('touchcancel');
+                    splitter.remove();
+                });
                 self.removeData('splitter');
                 var not_null = false;
                 for (var i=splitters.length; i--;) {
@@ -263,6 +374,9 @@
         if (pos < settings.limit.leftUpper) {
             pos = settings.limit.leftUpper;
         }
+        if (panels.length > 2 && !(pos instanceof Array && pos.length == $splitters.length)) {
+            throw new Error('position need to be array equal to $splitters length');
+        }
         self.position(pos, true);
         var parent = this.closest('.splitter_panel');
         if (parent.length) {
@@ -280,67 +394,89 @@
             $(document.documentElement).on('mousedown.splitter touchstart.splitter', function(e) {
                 if (splitter_id !== null) {
                     e.preventDefault();
-                    current_splitter = splitters[splitter_id];
+                    current_splitter = {
+                        node: splitters[splitter_id],
+                        index: current_splitter_index
+                    };
                     setTimeout(function() {
                         $('<div class="splitterMask"></div>').
-                            css('cursor', current_splitter.children().eq(1).css('cursor')).
-                            insertAfter(current_splitter);
+                            css('cursor', current_splitter.node.children().eq(1).css('cursor')).
+                            insertAfter(current_splitter.node);
                     });
-                    current_splitter.settings.onDragStart(e);
+                    current_splitter.node.settings.onDragStart(e);
                 }
             }).bind('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function(e) {
                 if (current_splitter) {
                     setTimeout(function() {
                         $('.splitterMask').remove();
                     });
-                    current_splitter.settings.onDragEnd(e);
+                    current_splitter.node.settings.onDragEnd(e);
                     current_splitter = null;
                 }
             }).bind('mousemove.splitter touchmove.splitter', function(e) {
                 if (current_splitter !== null) {
-                    var leftUpperLimit = current_splitter.limit.leftUpper;
-                    var rightBottomLimit = current_splitter.limit.rightBottom;
-                    var offset = current_splitter.offset();
-                    if (current_splitter.orientation == 'vertical') {
+                    var node = current_splitter.node;
+                    var leftUpperLimit = node.limit.leftUpper;
+                    var rightBottomLimit = node.limit.rightBottom;
+                    var offset = node.offset();
+                    if (node.orientation == 'vertical') {
                         var pageX = e.pageX;
                         if(e.originalEvent && e.originalEvent.changedTouches){
                           pageX = e.originalEvent.changedTouches[0].pageX;
                         }
                         var x = pageX - offset.left;
-                        if (x <= current_splitter.limit.leftUpper) {
-                            x = current_splitter.limit.leftUpper + 1;
-                        } else if (x >= current_splitter.width() - rightBottomLimit) {
-                            x = current_splitter.width() - rightBottomLimit - 1;
+                        if (x <= node.limit.leftUpper) {
+                            x = node.limit.leftUpper + 1;
+                        } else if (x >= node.width() - rightBottomLimit) {
+                            x = node.width() - rightBottomLimit - 1;
                         }
-                        if (x > current_splitter.limit.leftUpper &&
-                            x < current_splitter.width()-rightBottomLimit) {
-                            current_splitter.position(x, true);
-                            current_splitter.trigger('splitter.resize');
-                            current_splitter.find('.splitter_panel').
+                        var pos = node.position();
+                        if (pos.length > 1) {
+                            var new_pos = pos.slice(0, current_splitter.index);
+                            var p;
+                            if (new_pos.length) {
+                                p = x - new_pos.reduce(function(a, b) {
+                                    return a + b;
+                                });
+                            } else {
+                                p = x;
+                            }
+                            var diff = pos[current_splitter.index] - p;
+                            new_pos.push(p);
+                            if (current_splitter.index < pos.length - 1) {
+                                var rest = pos.slice(current_splitter.index + 1);
+                                rest[0] += diff;
+                                new_pos = new_pos.concat(rest);
+                            }
+                            node.position(new_pos, true);
+                        } else if (x > node.limit.leftUpper &&
+                            x < node.width()-rightBottomLimit) {
+                            node.trigger('splitter.resize');
+                            node.find('.splitter_panel').
                                 trigger('splitter.resize');
                             //e.preventDefault();
                         }
-                    } else if (current_splitter.orientation == 'horizontal') {
+                    } else if (node.orientation == 'horizontal') {
                         var pageY = e.pageY;
                         if(e.originalEvent && e.originalEvent.changedTouches){
                           pageY = e.originalEvent.changedTouches[0].pageY;
                         }
                         var y = pageY-offset.top;
-                        if (y <= current_splitter.limit.leftUpper) {
-                            y = current_splitter.limit.leftUpper + 1;
-                        } else if (y >= current_splitter.height() - rightBottomLimit) {
-                            y = current_splitter.height() - rightBottomLimit - 1;
+                        if (y <= node.limit.leftUpper) {
+                            y = node.limit.leftUpper + 1;
+                        } else if (y >= node.height() - rightBottomLimit) {
+                            y = node.height() - rightBottomLimit - 1;
                         }
-                        if (y > current_splitter.limit.leftUpper &&
-                            y < current_splitter.height()-rightBottomLimit) {
-                            current_splitter.position(y, true);
-                            current_splitter.trigger('splitter.resize');
-                            current_splitter.find('.splitter_panel').
+                        if (y > node.limit.leftUpper &&
+                            y < node.height()-rightBottomLimit) {
+                            node.position(y, true);
+                            node.trigger('splitter.resize');
+                            node.find('.splitter_panel').
                                 trigger('splitter.resize');
                             //e.preventDefault();
                         }
                     }
-                    current_splitter.settings.onDrag(e);
+                    node.settings.onDrag(e);
                 }
             });//*/
         }
@@ -348,4 +484,4 @@
         self.data('splitter', self);
         return self;
     };
-})(jQuery);
+});

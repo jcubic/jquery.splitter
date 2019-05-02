@@ -1,7 +1,7 @@
 # jQuery Splitter
 
-[![npm](https://img.shields.io/badge/npm-0.27.1-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
-![bower](https://img.shields.io/badge/bower-0.27.1-yellow.svg)
+[![npm](https://img.shields.io/badge/npm-0.28.0-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
+![bower](https://img.shields.io/badge/bower-0.28.0-yellow.svg)
 
 jQuery Splitter is plugin that split your content with movable splitter between them.
 
@@ -28,13 +28,24 @@ var splitter = $('#foo').height(200).split({
 
 **Note**: You need to set the height of the container for splitter to work.
 
+
+You can use this css:
+
+```css
+.container {
+  height: 100vh !important;
+}
+```
+
+to force full height.
+
 # Options
 
 * orientation - string 'horizontal' or 'vertical'.
 * limit - number or object `{leftUpper: number, rightBottom: number}` that indicate how many pixels where you can't move the splitter to the edge.
-* position - number or string with % indicate initial position of the splitter.
+* position - number or string with % indicate initial position of the splitter. (from version 0.28.0 you can use array of numbers or percents for multiple panels, array length need to have the same number as there are splitters so `children.length - 1`).
 * onDrag - event fired when draging the splitter, the event object is from mousemove
-* percent - boolean that indicate if spliter should use % instead of px (for use in print)
+* percent - boolean that indicate if spliter should use % instead of px (for use in print or when calling the window)
 
 # Methods
 
