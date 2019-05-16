@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.28.1
+ * JQuery Spliter Plugin version 0.28.2
  * Copyright (C) 2010-2019 Jakub T. Jankiewicz <https://jcubic.pl/me>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -105,10 +105,10 @@
         this.addClass('splitter_panel');
         var id = count++;
         panels.slice(0, -1).forEach(function(panel, i) {
-            var splitter = $('<div/>').addClass(cls).bind('mouseenter touchstart', function() {
+            var splitter = $('<div/>').addClass(cls).on('mouseenter touchstart', function() {
                 splitter_id = id;
                 current_splitter_index = splitter.index() - i - 1;
-            }).bind('mouseleave touchend', function() {
+            }).on('mouseleave touchend', function() {
                 splitter_id = null;
                 current_splitter_index = null;
             }).insertAfter(panel);
@@ -261,20 +261,20 @@
                     panel_1.removeClass('top_panel');
                     panel_2.removeClass('bottom_panel');
                 }
-                self.unbind('splitter.resize');
+                self.off('splitter.resize');
                 self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
                 count--;
                 $splitters.each(function() {
                     var splitter = $(this);
-                    splitter.unbind('mouseenter');
-                    splitter.unbind('mouseleave');
-                    splitter.unbind('touchstart');
-                    splitter.unbind('touchmove');
-                    splitter.unbind('touchend');
-                    splitter.unbind('touchleave');
-                    splitter.unbind('touchcancel');
+                    splitter.off('mouseenter');
+                    splitter.off('mouseleave');
+                    splitter.off('touchstart');
+                    splitter.off('touchmove');
+                    splitter.off('touchend');
+                    splitter.off('touchleave');
+                    splitter.off('touchcancel');
                     splitter.remove();
                 });
                 self.removeData('splitter');
@@ -287,14 +287,14 @@
                 }
                 //remove document events when no splitters
                 if (!not_null) {
-                    $(document.documentElement).unbind('.splitter');
-                    $(window).unbind('resize.splitter');
+                    $(document.documentElement).off('.splitter');
+                    $(window).off('resize.splitter');
                     splitters = [];
                     count = 0;
                 }
             }
         });
-        self.bind('splitter.resize', function(e) {
+        self.on('splitter.resize', function(e) {
             var pos = self.position();
             if (self.orientation == 'vertical' &&
                 pos > self.width()) {
@@ -358,7 +358,7 @@
         // ------------------------------------------------------------------------------------
         // bind events to document if no splitters
         if (splitters.filter(Boolean).length === 0) {
-            $(window).bind('resize.splitter', function() {
+            $(window).on('resize.splitter', function() {
                 $.each(splitters, function(i, splitter) {
                     if (splitter) {
                         splitter.refresh();
@@ -379,7 +379,7 @@
                     });
                     current_splitter.node.settings.onDragStart(e);
                 }
-            }).bind('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function(e) {
+            }).on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function(e) {
                 if (current_splitter) {
                     setTimeout(function() {
                         $('.splitterMask').remove();
@@ -387,7 +387,7 @@
                     current_splitter.node.settings.onDragEnd(e);
                     current_splitter = null;
                 }
-            }).bind('mousemove.splitter touchmove.splitter', function(e) {
+            }).on('mousemove.splitter touchmove.splitter', function(e) {
                 var pos;
                 if (current_splitter !== null) {
                     var node = current_splitter.node;

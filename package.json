@@ -1,6 +1,6 @@
 {
   "name": "jquery.splitter",
-  "version": "0.28.1",
+  "version": "0.28.2",
   "description": "jQuery Splitter is plugin that split your all children with movable splitters between each of them.",
   "main": "js/jquery.splitter.js",
   "repository": {
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/jcubic/jquery.splitter/issues"
   },
-  "homepage": "https://github.com/jcubic/jquery.splitter"
+  "homepage": "https://github.com/jcubic/jquery.splitter",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
 }
