@@ -6,3 +6,5 @@ js/jquery-1.4.4.min.js
 splitter.jquery.json
 splitter.php
 test
+node_modules
+package-lock.json

@@ -1,5 +1,5 @@
 /*!
- * JQuery Spliter Plugin version 0.28.2
+ * jQuery Spliter Plugin version 0.28.3
  * Copyright (C) 2010-2019 Jakub T. Jankiewicz <https://jcubic.pl/me>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -372,11 +372,14 @@
                         node: splitters[splitter_id],
                         index: current_splitter_index
                     };
-                    setTimeout(function() {
-                        $('<div class="splitterMask"></div>').
-                            css('cursor', current_splitter.node.children().eq(1).css('cursor')).
-                            insertAfter(current_splitter.node);
-                    });
+                    // ignore right click
+                    if (e.originalEvent.button !== 2) {
+                        setTimeout(function() {
+                            $('<div class="splitterMask"></div>').
+                                css('cursor', current_splitter.node.children().eq(1).css('cursor')).
+                                insertAfter(current_splitter.node);
+                        });
+                    }
                     current_splitter.node.settings.onDragStart(e);
                 }
             }).on('mouseup.splitter touchend.splitter touchleave.splitter touchcancel.splitter', function(e) {
@@ -410,6 +413,7 @@
                             node.position(calc_pos(pos, x), true);
                         } else if (x > node.limit.leftUpper &&
                             x < node.width()-rightBottomLimit) {
+                            node.position(x, true);
                             node.trigger('splitter.resize');
                             node.find('.splitter_panel').
                                 trigger('splitter.resize');
