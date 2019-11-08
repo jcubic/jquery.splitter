@@ -11,6 +11,26 @@
     <!--[if IE]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+<style>
+@media (max-width: 800px) {
+  .vsplitter, .hsplitter {
+    display: none;
+  }
+  .vsplitter,
+  .splitter_panel,
+  .right_panel,
+  .left_panel,
+  .top_panel,
+  .bottom_panel,
+  .horizontal_panel,
+  .vertical_panel,
+  .hsplitter {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+  }
+}
+</style>
 <script>
 jQuery(function($) {
    $('#widget').width(700).height(400).split({
@@ -37,9 +57,16 @@ jQuery(function($) {
        limit: 20,
        percent: true
    });
+   $('#multiple').css('height', 200).split({
+       limit: 5,
+       orientation: 'vertical'
+   });
 });
 </script>
 <style>
+#multiple > .item {
+  background-color: #2d2d2d;
+}
 #spliter2 .a {
   background-color: #2d2d2d;
 }
@@ -75,6 +102,12 @@ jQuery(function($) {
    </div> <!-- end of #foo -->
    <div id="bar">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed dolor nisl, in suscipit justo. Donec a enim et est porttitor semper at vitae augue. Proin at nulla at dui mattis mattis. Nam a volutpat ante. Aliquam consequat dui eu sem convallis ullamcorper. Nulla suscipit, massa vitae suscipit ornare, tellus est consequat nunc, quis blandit elit odio eu arcu. Nam a urna nec nisl varius sodales. Mauris iaculis tincidunt orci id commodo. Aliquam non magna quis tortor malesuada aliquam eget ut lacus. Nam ut vestibulum est. Praesent volutpat tellus in eros dapibus elementum. Nam laoreet risus non nulla mollis ac luctus felis dapibus. Pellentesque mattis elementum augue non sollicitudin. Nullam lobortis fermentum elit ac mollis. Nam ac varius risus. Cras faucibus euismod nulla, ac auctor diam rutrum sit amet. Nulla vel odio erat, ac mattis enim.</div>
 </div> <!-- end of #widget -->
+<div id="multiple">
+  <div class="item">One</div>
+  <div class="item">Two</div>
+  <div class="item">Three</div>
+  <div class="item">Four</div>
+</div>
 <div id="debug"></div>
 <div id="spliter2">
   <div class="a">Praesent volutpat tellus in eros dapibus elementum. Nam laoreet risus non nulla mollis ac luctus felis dapibus. Pellentesque mattis elementum augue non sollicitudin. Nullam lobortis fermentum elit ac mollis. Nam ac varius risus. Cras faucibus euismod nulla, ac auctor diam rutrum sit amet.

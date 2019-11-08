@@ -1,5 +1,5 @@
 /*!
- * jQuery Spliter Plugin version 0.28.3
+ * jQuery Spliter Plugin version 0.28.4
  * Copyright (C) 2010-2019 Jakub T. Jankiewicz <https://jcubic.pl/me>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -46,6 +46,12 @@
         factory(root.jQuery);
     }
 })(function($, undefined) {
+    if (typeof String.prototype.trim === 'undefined') {
+        var sp_re = /(^\s+)|(\s+)$/g;
+        String.prototype.trim = function() {
+            return this.replace(sp_re, '');
+        };
+    }
     var count = 0;
     var splitter_id = null;
     var splitters = [];
@@ -71,6 +77,21 @@
             percent: false
         }, options || {});
         this.settings = settings;
+        function unset(prop) {
+            return options && typeof options[prop] === 'undefined' || !options;
+        }
+        var len = this.children().length;
+        if (len > 2) {
+            if (unset('position')) {
+                var w = 100 / len;
+                settings.position = new Array(len - 1).fill(0).map(function() {
+                    return w + '%';
+                });
+            }
+            if (unset('percent')) {
+                settings.percent = true;
+            }
+        }
         var cls;
         var children = this.children();
         if (children.length === 2) {
@@ -254,28 +275,40 @@
             },
             destroy: function() {
                 self.removeClass('splitter_panel');
-                if (settings.orientation == 'vertical') {
-                    panel_1.removeClass('left_panel');
-                    panel_2.removeClass('right_panel');
-                } else if (settings.orientation == 'horizontal') {
-                    panel_1.removeClass('top_panel');
-                    panel_2.removeClass('bottom_panel');
+                clear_attr(self, 'class');
+                function clear_attr(item, attr) {
+                    var val = item.attr(attr);
+                    if (typeof val === 'string' && !val.trim()) {
+                        item.removeAttr(attr);
+                    }
                 }
+                panels.forEach(function($panel) {
+                    $panel.css({
+                        height: '',
+                        width: '',
+                        left: '',
+                        top: ''
+                    });
+                    var cls = $panel.attr('class').replace(/\w+_panel/g, '').trim();
+                    $panel.attr('class', cls);
+                    clear_attr($panel, 'class');
+                    clear_attr($panel, 'style');
+                });
                 self.off('splitter.resize');
                 self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
                 count--;
-                $splitters.each(function() {
+                $splitters.forEach(function($splitter) {
                     var splitter = $(this);
-                    splitter.off('mouseenter');
-                    splitter.off('mouseleave');
-                    splitter.off('touchstart');
-                    splitter.off('touchmove');
-                    splitter.off('touchend');
-                    splitter.off('touchleave');
-                    splitter.off('touchcancel');
-                    splitter.remove();
+                    $splitter.off('mouseenter');
+                    $splitter.off('mouseleave');
+                    $splitter.off('touchstart');
+                    $splitter.off('touchmove');
+                    $splitter.off('touchend');
+                    $splitter.off('touchleave');
+                    $splitter.off('touchcancel');
+                    $splitter.remove();
                 });
                 self.removeData('splitter');
                 var not_null = false;
