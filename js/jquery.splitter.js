@@ -219,12 +219,14 @@
                             } else {
                                 var s_sum = splitter_dim * i;
                                 var props = {};
+                                var correction = settings.orientation == 'vertical'
+                                  ? parseInt(panels[i].css('marginLeft')) + parseInt(panels[i].css('marginRight'))
+                                  : parseInt(panels[i].css('marginTop')) + parseInt(panels[i].css('marginBottom'));
+                                props[dim_name] = dim_px - pw - sw_sum - correction;
+                                props[pos_name] = pw + sw_sum;
                                 if (settings.percent) {
-                                    props[dim_name] = (dim_px - pw - sw_sum) / dim_px * 100 + '%';
-                                    props[pos_name] = (pw + sw_sum) / dim_px * 100 + '%';
-                                } else {
-                                    props[dim_name] = dim_px - pw - sw_sum;
-                                    props[pos_name] = pw + sw_sum;
+                                    props[dim_name] = props[dim_name] / dim_px * 100 + '%';
+                                    props[pos_name] = props[pos_name] / dim_px * 100 + '%';
                                 }
                                 panel_last.css(props);
                             }
@@ -266,7 +268,7 @@
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
                 count--;
-                $splitters.each(function() {
+                $($splitters).each(function() {
                     var splitter = $(this);
                     splitter.off('mouseenter');
                     splitter.off('mouseleave');
