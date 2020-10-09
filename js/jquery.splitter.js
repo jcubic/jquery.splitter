@@ -375,6 +375,9 @@
                     // ignore right click
                     if (e.originalEvent.button !== 2) {
                         setTimeout(function() {
+                            if (!current_splitter) {
+                                return;
+                            }
                             $('<div class="splitterMask"></div>').
                                 css('cursor', current_splitter.node.children().eq(1).css('cursor')).
                                 insertAfter(current_splitter.node);
