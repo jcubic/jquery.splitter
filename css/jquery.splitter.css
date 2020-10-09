@@ -45,6 +45,7 @@
 .splitter_panel .vertical_panel {
     position: absolute;
     overflow: auto;
+    box-sizing: border-box;  
 }
 
 .splitter_panel .vsplitter,
