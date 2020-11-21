@@ -365,10 +365,14 @@
             throw new Error('position need to be array equal to $splitters length');
         }
         self.position(pos, true);
+        /*
+        // disable this is not needed, if higher in tree there is splitter
+        // the parets need to have height: 100%
         var parent = this.closest('.splitter_panel');
         if (parent.length) {
             this.height(parent.height());
         }
+        */
         function calc_pos(pos, x) {
             var new_pos = pos.slice(0, current_splitter.index);
             var p;
