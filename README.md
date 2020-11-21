@@ -6,7 +6,7 @@
 jQuery Splitter is plugin that split your content with movable splitter between them.
 
 
-# Example
+## Example
 
 ```javascript
 var splitter = $('#foo').height(200).split({
@@ -26,8 +26,9 @@ var splitter = $('#foo').height(200).split({
 </div>
 ```
 
-**Note**: You need to set the height of the container for splitter to work.
+## Limitations
 
+You need to set the height of the container for splitter to work.
 
 You can use this css:
 
@@ -39,7 +40,33 @@ You can use this css:
 
 to force full height.
 
-# Options
+If you have wrappers inside left or right splitter and you create another splitter inside:
+
+```html
+<div class="splitter"
+  <div class="left">
+    <div class="wrapper">
+       <div class="top"></div>
+       <div class="bottom"></div>
+    </div>
+  </div>
+  <div class="right">
+  </div>
+</div>
+```
+
+wrapper is not directly inside left, so it will not get the full height (this is how CSS work),
+so in order to fix this case, you need to set the wrapper to proper height. Most likely you want:
+
+```css
+.splitter .wrapper {
+  height: 100%;
+}
+```
+
+to fit full height of the left splitter.
+
+## Options
 
 * orientation - string 'horizontal' or 'vertical'.
 * limit - number or object `{leftUpper: number, rightBottom: number}` that indicate how many pixels where you can't move the splitter to the edge.
@@ -47,7 +74,7 @@ to force full height.
 * onDrag - event fired when draging the splitter, the event object is from mousemove
 * percent - boolean that indicate if spliter should use % instead of px (for use in print or when calling the window)
 
-# Methods
+## Methods
 
 Instance returned by splitter is jQuery object with additional methods:
 
@@ -57,19 +84,18 @@ Instance returned by splitter is jQuery object with additional methods:
 * `isActive` - returns `boolean`
 * `destroy()` - remove splitter data
 
-# Demo
+## Demo
 
 <http://jquery.jcubic.pl/splitter.php>
 
-# Patch Contributors
+## Patch Contributors
 
 * Robert Tupelo-Schneck
 * Taras Strypko
 * [Yury Plashenkov](https://github.com/plashenkov)
 * [@beskorsova](https://github.com/beskorsova)
 
-# License
+## License
 
-Copyright (C) 2010-2019 Jakub T. Jankiewicz &lt;<https://jcubic.pl/me>&gt;
-
+Copyright (C) 2010-2019 Jakub T. Jankiewicz &lt;<https://jcubic.pl/me>&gt;<br/>
 Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
