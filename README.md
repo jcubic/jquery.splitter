@@ -1,7 +1,7 @@
 # jQuery Splitter
 
-[![npm](https://img.shields.io/badge/npm-0.28.4-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
-![bower](https://img.shields.io/badge/bower-0.28.3-yellow.svg)
+[![npm](https://img.shields.io/badge/npm-0.28.5-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
+![bower](https://img.shields.io/badge/bower-0.28.5-yellow.svg)
 
 jQuery Splitter is plugin that split your content with movable splitter between them.
 
@@ -97,5 +97,5 @@ Instance returned by splitter is jQuery object with additional methods:
 
 ## License
 
-Copyright (C) 2010-2019 Jakub T. Jankiewicz &lt;<https://jcubic.pl/me>&gt;<br/>
+Copyright (C) 2010-2020 Jakub T. Jankiewicz &lt;<https://jcubic.pl/me>&gt;<br/>
 Released under the terms of the [GNU Lesser General Public License](http://www.gnu.org/licenses/lgpl.html)
