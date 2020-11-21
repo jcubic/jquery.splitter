@@ -1,7 +1,7 @@
 .*
 *~
 bower.json
-demo.html
+*.html
 js/jquery-1.4.4.min.js
 splitter.jquery.json
 splitter.php
