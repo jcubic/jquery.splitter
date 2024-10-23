@@ -73,7 +73,7 @@ to fit full height of the left splitter.
 * position - number or string with % indicate initial position of the splitter. (from version 0.28.0 you can use array of numbers or percents for multiple panels, array length need to have the same number as there are splitters so `children.length - 1`).
 * onDrag - event fired when draging the splitter, the event object is from mousemove.
 * percent - boolean that indicate if spliter should use % instead of px (for use in print or when calling the window).
-* ignoreTags - a string with a comma separated list of html tags that should be ignored when creating splitter, default `"script,style,link"`.
+* ignoreTags - a string with a comma separated list of html tags that should be ignored when creating splitter, default `"script,style,link"` (included in version 0.29.0).
 
 ## Methods
 
