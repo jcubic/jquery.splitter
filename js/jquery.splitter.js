@@ -69,6 +69,7 @@
         var settings = $.extend({
             limit: 100,
             orientation: 'horizontal',
+            ignoreTags: 'script,style,link',
             position: '50%',
             invisible: false,
             onDragStart: $.noop,
@@ -80,7 +81,8 @@
         function unset(prop) {
             return options && typeof options[prop] === 'undefined' || !options;
         }
-        var len = this.children().length;
+        var children = this.children().not(settings.ignoreTags);
+        var len = children.length;
         if (len > 2) {
             if (unset('position')) {
                 var w = 100 / len;
@@ -93,7 +95,6 @@
             }
         }
         var cls;
-        var children = this.children();
         if (children.length === 2) {
             if (settings.orientation == 'vertical') {
                 panel_1 = children.first().addClass('left_panel');
