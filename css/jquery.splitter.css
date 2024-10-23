@@ -21,7 +21,7 @@
 .splitter_panel .vsplitter {
     background-color: grey;
     cursor: col-resize;
-    z-index:900;
+    z-index: 900;
     width: 7px;
 }
 
@@ -52,12 +52,14 @@
 .splitter_panel .right_panel,
 .splitter_panel .vertical_panel {
   height: 100%;
+  box-sizing: border-box;
 }
 .splitter_panel .hsplitter,
 .splitter_panel .top_panel,
 .splitter_panel .bottom_panel,
 .splitter_panel .horizontal_panel {
   width: 100%;
+  box-sizing: border-box;
 }
 .splitter_panel .top_panel,
 .splitter_panel .left_panel,
