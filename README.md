@@ -1,7 +1,7 @@
 # jQuery Splitter
 
-[![npm](https://img.shields.io/badge/npm-0.28.5-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
-![bower](https://img.shields.io/badge/bower-0.28.5-yellow.svg)
+[![npm](https://img.shields.io/badge/npm-0.29.0-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
+![bower](https://img.shields.io/badge/bower-0.29.0-yellow.svg)
 
 jQuery Splitter is plugin that split your content with movable splitter between them.
 
