@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/jcubic/jquery.splitter",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "jquery": "^3.7.1"
   }
 }
