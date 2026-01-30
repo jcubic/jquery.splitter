@@ -299,7 +299,7 @@
                 self.trigger('splitter.resize');
                 self.find('.splitter_panel').trigger('splitter.resize');
                 splitters[id] = null;
-                count--;
+
                 $splitters.forEach(function($splitter) {
                     var splitter = $(this);
                     $splitter.off('mouseenter');
