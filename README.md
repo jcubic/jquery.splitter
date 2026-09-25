@@ -2,7 +2,7 @@
 
 # jQuery Splitter
 
-[![npm](https://img.shields.io/badge/npm-0.29.1-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
+[![npm](https://img.shields.io/badge/npm-0.30.0-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
 [![github repo](https://img.shields.io/badge/github-repo-orange?logo=github)](https://github.com/jcubic/jquery.splitter)
 [![LICENSE MIT](https://img.shields.io/badge/license-LGPL-blue.svg)](https://github.com/jcubic/jquery.splitter/blob/master/LICENSE)
 
@@ -17,7 +17,7 @@ jQuery Splitter is a plugin that splits your content with a movable splitter bet
 var splitter = $('#foo').height(200).split({
     orientation: 'vertical',
     limit: 10,
-    position: '50%', // if there is no percentage it interpret it as pixels
+    position: '50%', // if there is no percentage, it interprets it as pixels
     onDrag: function(event) {
         console.log(splitter.position());
     }
@@ -33,9 +33,9 @@ var splitter = $('#foo').height(200).split({
 
 ## Limitations
 
-You need to set the height of the container for splitter to work.
+You need to set the height of the container for the splitter to work.
 
-You can use this css:
+You can use this CSS:
 
 ```css
 .container {
