@@ -1,9 +1,14 @@
+<div align="center">
+
 # jQuery Splitter
 
 [![npm](https://img.shields.io/badge/npm-0.29.1-blue.svg)](https://www.npmjs.com/package/jquery.splitter)
-![bower](https://img.shields.io/badge/bower-0.29.1-yellow.svg)
+[![github repo](https://img.shields.io/badge/github-repo-orange?logo=github)](https://github.com/jcubic/jquery.splitter)
+[![LICENSE MIT](https://img.shields.io/badge/license-LGPL-blue.svg)](https://github.com/jcubic/jquery.splitter/blob/master/LICENSE)
 
-jQuery Splitter is plugin that split your content with movable splitter between them.
+</div>
+
+jQuery Splitter is a plugin that splits your content with a movable splitter between them.
 
 
 ## Example
