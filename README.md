@@ -85,6 +85,36 @@ Instance returned by splitter is jQuery object with additional methods:
 * `isActive` - returns `boolean`
 * `destroy()` - remove splitter data
 
+## TypeScript
+
+The package ships with TypeScript definitions (`js/jquery.splitter.d.ts`), they extend the
+global `JQuery` interface:
+
+```typescript
+import $ from 'jquery';
+import splitter from 'jquery.splitter';
+import 'jquery.splitter/css/jquery.splitter.css';
+
+// This is needed when using bundlers like Vite or Webpack
+splitter(window, $);
+
+const splitter = $('#foo').height(200).split({
+    orientation: window.innerWidth > 1000 ? 'vertical' : 'horizontal',
+    limit: 10,
+    position: '50%',
+    onDrag(event) {
+        console.log(splitter.position());
+    }
+});
+```
+
+The object returned by `split()` is typed as `JQuerySplitter`, the option and helper types
+are in the `JQuerySplitter` namespace (`JQuerySplitter.Options`,
+`JQuerySplitter.Orientation`, `JQuerySplitter.Limit`, `JQuerySplitter.Position`).
+
+Note that `position()` on a splitter is the plugin method (it returns an array of pixel
+positions), not the jQuery method that return coordinates.
+
 ## Demo
 
 <http://jquery.jcubic.pl/splitter.php>

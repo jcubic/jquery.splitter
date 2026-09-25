@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "lib": ["es2015", "dom"],
+        "noImplicitThis": true,
+        "strict": true
+    },
+    "files": ["test.ts", "js/jquery.splitter.d.ts"]
+}
